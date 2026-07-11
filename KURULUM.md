@@ -15,7 +15,7 @@ Korkma, sadece aşağıdakileri yapıştıracaksın.
 ### 2. Aşağıdaki TEK satırı KOPYALA, Terminal'e YAPIŞTIR, Enter'a bas
 
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/hakan-svg/video-indirici/main/mac-kur.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/hakan-svg/PKD-Post-Kreatif-Downloader/main/mac-kur.sh)"
 ```
 
 Gerisini kurulum kendisi halleder. Sadece şunlar olabilir:
@@ -47,9 +47,9 @@ winget install Gyan.FFmpeg
 ```
 
 ### 3. Programı indir
-https://github.com/hakan-svg/video-indirici adresine gir →
+https://github.com/hakan-svg/PKD-Post-Kreatif-Downloader adresine gir →
 yeşil **Code** düğmesi → **Download ZIP**. İnen ZIP'e sağ tıkla →
-**Tümünü ayıkla** → çıkan **video-indirici** klasörünü
+**Tümünü ayıkla** → çıkan **PKD-Post-Kreatif-Downloader** klasörünü
 **Belgeler**'in içine taşı.
 
 ### 4. Kur
@@ -68,12 +68,12 @@ bilgisayar her açıldığında kendiliğinden çalışır).
 2. Sağ üst köşedeki **Geliştirici modu** anahtarını aç (maviye dönsün)
 3. Sol üstte beliren **Paketlenmemiş öğe yükle** düğmesine tıkla
 4. Klasörü seç:
-   - **Mac:** Masaüstündeki **VideoIndirici-Eklenti** klasörü
+   - **Mac:** Masaüstündeki **PKD-Eklenti** klasörü
      (kurulum onu oraya kendisi koyar; bu klasörü sonradan silme)
-   - **Windows:** **video-indirici** klasörünün İÇİNDEKİ **eklenti** klasörü
-     — dikkat: video-indirici'nin kendisini değil, içindeki **eklenti**'yi
+   - **Windows:** **PKD-Post-Kreatif-Downloader** klasörünün İÇİNDEKİ **eklenti** klasörü
+     — dikkat: ana klasörün kendisini değil, içindeki **eklenti**'yi
      seçmezsen "Manifest dosyası eksik" hatası alırsın
-5. Araç çubuğunda puzzle (🧩) simgesine tıkla → **Video İndirici**'nin
+5. Araç çubuğunda puzzle (🧩) simgesine tıkla → **PKD**'nin
    yanındaki raptiyeye tıkla ki hep görünsün
 
 ---
@@ -87,18 +87,18 @@ bilgisayar her açıldığında kendiliğinden çalışır).
    **Sadece ses**)
 4. İstediğine tıkla → "İndirme başladı" yazısını görünce sayfayı, Chrome'u,
    her şeyi kapatabilirsin; indirme arka planda sürer
-5. Video **İndirilenler / VideoIndirici** klasörüne iner; bitince Mac'te
+5. Video **İndirilenler / PKD** klasörüne iner; bitince Mac'te
    sağ üstte bildirim çıkar
 
-Düğme çıkmayan bir sayfada araç çubuğundaki **Video İndirici** simgesine
+Düğme çıkmayan bir sayfada araç çubuğundaki **PKD** simgesine
 tıklayarak da indirebilirsin.
 
-**Instagram veya girişli içerik inmezse:** popup'ın altındaki
-**"Chrome çerezlerini kullan"** kutusunu işaretleyip tekrar dene.
+**Instagram gibi girişli siteler:** Chrome'da o siteye giriş yapmış
+olman yeterli; başka bir şey yapmana gerek yok.
 
 ## SORUN OLURSA
 
-- **"Yerel sunucu çalışmıyor" diyorsa:** video-indirici klasöründeki
+- **"Yerel sunucu çalışmıyor" diyorsa:** PKD-Post-Kreatif-Downloader klasöründeki
   **baslat.command**'a (Mac) / **baslat.bat**'a (Windows) çift tıkla.
 - **Video bulunamadı diyorsa:** sayfayı yenileyip videoyu bir kez
   oynatmayı dene, sonra tekrar simgeye tıkla.

@@ -1,15 +1,19 @@
 {
   "manifest_version": 3,
-  "name": "Video İndirici",
-  "version": "2.0",
-  "description": "Sayfadaki videoların üzerine indirme düğmesi ekler; çözünürlük seçerek yerel yt-dlp sunucusuyla indirir.",
+  "name": "PKD — Post Kreatif Downloader",
+  "version": "2.1",
+  "description": "Sayfadaki videoların üzerine indirme düğmesi ekler; çözünürlük seçerek yerel sunucuyla indirir.",
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Videoyu indir"
+    "default_title": "PKD"
   },
   "icons": { "128": "icon.png" },
-  "permissions": ["activeTab", "tabs", "storage"],
-  "host_permissions": ["http://127.0.0.1:8765/*"],
+  "permissions": ["activeTab", "tabs", "storage", "cookies"],
+  "host_permissions": [
+    "http://127.0.0.1:8765/*",
+    "http://*/*",
+    "https://*/*"
+  ],
   "background": { "service_worker": "background.js" },
   "content_scripts": [
     {

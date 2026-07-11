@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Video İndirici — Mac'te TEK KOMUTLA kurulum.
+# PKD — Post Kreatif Downloader, Mac'te TEK KOMUTLA kurulum.
 # Terminal'e şunu yapıştırmak yeterli:
-#   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/hakan-svg/video-indirici/main/mac-kur.sh)"
+#   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/hakan-svg/PKD-Post-Kreatif-Downloader/main/mac-kur.sh)"
 set -e
 
 DIZIN="${VIDEO_INDIRICI_DIZIN:-$HOME/video-indirici}"
-DEPO="https://github.com/hakan-svg/video-indirici"
+DEPO="https://github.com/hakan-svg/PKD-Post-Kreatif-Downloader"
 
-echo "==> Video İndirici kuruluyor..."
+echo "==> PKD kuruluyor..."
 
 # 1) Apple komut satırı araçları (python3 için gerekli)
 if ! xcode-select -p >/dev/null 2>&1; then
@@ -48,7 +48,7 @@ python3 -m venv .venv
 
 # 6) Eklentiyi masaüstüne kopyala — Chrome'da seçilecek klasör bu.
 #    (Yanlışlıkla ana klasörün seçilmesini önler; net isimli tek klasör.)
-EKLENTI="$HOME/Desktop/VideoIndirici-Eklenti"
+EKLENTI="$HOME/Desktop/PKD-Eklenti"
 rm -rf "$EKLENTI"
 cp -R "$DIZIN/eklenti" "$EKLENTI"
 open -R "$EKLENTI" 2>/dev/null || true
@@ -65,6 +65,6 @@ echo "✅ Kurulum bitti. Sunucu çalışıyor ve bilgisayar her açıldığında
 echo
 echo "Son adım — Chrome'da (30 saniye, bir kereliğine):"
 echo "  1) Açılan chrome://extensions sayfasında sağ üstten 'Geliştirici modu'nu aç"
-echo "  2) 'Paketlenmemiş öğe yükle'ye tıkla, MASAÜSTÜNDEKİ 'VideoIndirici-Eklenti' klasörünü seç"
+echo "  2) 'Paketlenmemiş öğe yükle'ye tıkla, MASAÜSTÜNDEKİ 'PKD-Eklenti' klasörünü seç"
 echo
-echo "Not: Masaüstündeki VideoIndirici-Eklenti klasörünü silme; Chrome eklentiyi oradan çalıştırır."
+echo "Not: Masaüstündeki PKD-Eklenti klasörünü silme; Chrome eklentiyi oradan çalıştırır."

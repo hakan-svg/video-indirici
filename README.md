@@ -1,4 +1,4 @@
-# Video İndirici
+# PKD — Post Kreatif Downloader
 
 Chrome eklentisi + yerel yt-dlp sunucusu. Açık sekmedeki videoyu çözünürlük
 seçerek tek tıkla indirir. yt-dlp'nin desteklediği tüm siteler çalışır
@@ -17,12 +17,12 @@ Gereksinimler: Python 3.10+, ffmpeg, Google Chrome.
 
 **macOS (tek komut — ffmpeg, otomatik başlatma dahil her şeyi kurar):**
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/hakan-svg/video-indirici/main/mac-kur.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/hakan-svg/PKD-Post-Kreatif-Downloader/main/mac-kur.sh)"
 ```
 
 **Linux:**
 ```bash
-git clone https://github.com/hakan-svg/video-indirici.git && cd video-indirici
+git clone https://github.com/hakan-svg/PKD-Post-Kreatif-Downloader.git && cd PKD-Post-Kreatif-Downloader
 ./kur.sh
 ```
 
@@ -47,14 +47,16 @@ kendiliğinden başlar, bir daha elle başlatman gerekmez.
    kurmadıysan `baslat.command` (Mac) / `baslat.bat` (Windows)
 2. Fareyi videonun üzerine getir, sağ üstte çıkan düğmeye tıkla
    (veya araç çubuğundaki eklenti simgesini kullan)
-3. Çözünürlüğü seç → dosya `~/Downloads/VideoIndirici/` klasörüne iner;
+3. Çözünürlüğü seç → dosya `~/Downloads/PKD/` klasörüne iner;
    sayfa/Chrome kapatılabilir, bitince macOS bildirimi gelir
 
 İndirilen dosyalar QuickTime/Önizleme uyumludur: H.264/AAC tercih edilir,
 uyumsuz kodekler (VP9/AV1/Opus) otomatik dönüştürülür.
 
-Girişli içerik (Instagram, gizli hesaplar) için popup'taki
-"Chrome çerezlerini kullan" kutusunu işaretle.
+Girişli içerik (Instagram, gizli hesaplar) kendiliğinden çalışır:
+eklenti, ilgili sitenin çerezlerini Chrome API'siyle okuyup yerel sunucuya
+iletir (anahtar zinciri/sistem şifresi gerekmez); sunucu çerezleri yalnızca
+çerezsiz deneme başarısız olursa kullanır.
 
 ## Notlar
 

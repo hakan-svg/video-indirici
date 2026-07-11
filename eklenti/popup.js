@@ -1,7 +1,8 @@
-// Popup: sayfa içi düğmenin yedeği. İndirme sunucuda çalışır;
-// popup kapatılsa da sürer, bitince macOS bildirimi gelir.
+// PKD popup: üstte açık sekmedeki video, altta indirme listesi.
+// İndirmeler sunucuda çalışır; popup yalnızca durumu gösterir.
 const $ = (id) => document.getElementById(id);
 let sayfaUrl = "";
+let videoBaslik = "";
 
 function mesaj(yazi, tur = "") {
   $("mesaj").textContent = yazi;
@@ -19,19 +20,14 @@ function sureYaz(sn) {
 }
 
 async function formatlariGetir() {
-  $("icerik").innerHTML = '<span class="donen"></span> Video bilgisi alınıyor…';
-  $("butonlar").textContent = "";
-  mesaj("");
-  const v = await mesajGonder({
-    tip: "formatlar", url: sayfaUrl, cerez: $("cerez").checked,
-  });
+  const v = await mesajGonder({ tip: "formatlar", url: sayfaUrl });
   $("icerik").textContent = "";
   if (v.hata) {
     return mesaj(v.hata === "sunucu-yok"
-      ? "Yerel sunucu çalışmıyor.\nvideo-indirici klasöründeki baslat.command dosyasına çift tıkla."
-      : "Video bulunamadı: " + v.hata, "hata");
+      ? "Yerel sunucu çalışmıyor.\nPKD klasöründeki baslat.command dosyasına çift tıkla."
+      : "Bu sayfada indirilebilir video bulunamadı.", "hata");
   }
-
+  videoBaslik = v.baslik || "";
   $("baslik").hidden = false;
   $("baslik").textContent = v.baslik;
   $("meta").hidden = false;
@@ -41,7 +37,7 @@ async function formatlariGetir() {
     const b = document.createElement("button");
     b.textContent = etiket;
     if (birincil) b.className = "birincil";
-    b.onclick = () => indir(govde, etiket);
+    b.onclick = () => indir(govde);
     $("butonlar").appendChild(b);
   };
   if (v.cozunurlukler.length) {
@@ -52,36 +48,76 @@ async function formatlariGetir() {
   ekle("Sadece ses", { sadeceSes: true });
 }
 
-async function indir(govde, etiket) {
+async function indir(govde) {
   const y = await mesajGonder({
-    tip: "indir", url: sayfaUrl, cerez: $("cerez").checked, ...govde,
+    tip: "indir", url: sayfaUrl, baslik: videoBaslik, ...govde,
   });
-  if (y.hata) return mesaj(y.hata, "hata");
-  mesaj(`✅ İndirme başladı (${etiket}).\nBitince bildirim gelecek; bu pencereyi ve sayfayı kapatabilirsin.\nDosya: İndirilenler/VideoIndirici`, "tamam");
+  if (y.hata) return mesaj("İndirme başlatılamadı.", "hata");
+  mesaj("İndirme başladı — bu pencereyi kapatabilirsin.", "tamam");
+  isleriYenile();
+}
+
+function durumYaz(k) {
+  if (k.durum === "bitti") return ["İndirildi ✓", "tamam"];
+  if (k.durum === "hata") return ["Başarısız", "hata"];
+  if (k.durum === "donusturuluyor") return ["Dönüştürülüyor…", ""];
+  if (k.durum === "indiriliyor") return [`%${k.yuzde || 0}`, ""];
+  return ["Hazırlanıyor…", ""];
+}
+
+async function isleriYenile() {
+  const y = await mesajGonder({ tip: "isler" });
+  if (y.hata) return;
+  const liste = $("isListesi");
+  liste.textContent = "";
+  for (const k of y.isler || []) {
+    const kutu = document.createElement("div");
+    kutu.className = "is";
+
+    const ust = document.createElement("div");
+    ust.className = "is-ust";
+    const ad = document.createElement("div");
+    ad.className = "is-baslik";
+    ad.textContent = k.baslik || k.dosya || "Video";
+    ad.title = ad.textContent;
+    const [durumMetni, durumSinifi] = durumYaz(k);
+    const durum = document.createElement("div");
+    durum.className = "is-durum " + durumSinifi;
+    durum.textContent = durumMetni;
+    ust.append(ad, durum);
+    kutu.appendChild(ust);
+
+    if (k.durum === "indiriliyor" || k.durum === "hazirlaniyor" ||
+        k.durum === "donusturuluyor") {
+      const cubuk = document.createElement("div");
+      cubuk.className = "cubuk";
+      const ic = document.createElement("div");
+      ic.style.width = (k.durum === "donusturuluyor" ? 100 : k.yuzde || 0) + "%";
+      cubuk.appendChild(ic);
+      kutu.appendChild(cubuk);
+    }
+    liste.appendChild(kutu);
+  }
 }
 
 (async () => {
-  const { cerezTercihi } = await chrome.storage.local.get("cerezTercihi");
-  $("cerez").checked = !!cerezTercihi;
-  $("cerez").onchange = () => {
-    chrome.storage.local.set({ cerezTercihi: $("cerez").checked });
-    formatlariGetir();
-  };
-
   const ping = await mesajGonder({ tip: "ping" });
   if (!ping.tamam) {
     $("icerik").textContent = "";
     return mesaj(
-      "Yerel sunucu çalışmıyor.\nBaşlatmak için: video-indirici klasöründeki " +
-      "baslat.command dosyasına çift tıkla.", "hata");
+      "Yerel sunucu çalışmıyor.\nBaşlatmak için bilgisayarı yeniden başlat " +
+      "veya PKD klasöründeki baslat.command dosyasına çift tıkla.", "hata");
   }
   $("sunucuNokta").classList.add("acik");
+
+  isleriYenile();
+  setInterval(isleriYenile, 1000);
 
   const [sekme] = await chrome.tabs.query({ active: true, currentWindow: true });
   sayfaUrl = sekme?.url || "";
   if (!/^https?:/.test(sayfaUrl)) {
     $("icerik").textContent = "";
-    return mesaj("Bu sayfada indirilebilir video yok.", "hata");
+    return mesaj("Bu sayfada video yok.", "");
   }
   formatlariGetir();
 })();

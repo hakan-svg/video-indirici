@@ -83,10 +83,8 @@
       '<span class="vi-durum">Video bilgisi alınıyor…</span></div>';
     document.documentElement.appendChild(panel);
 
-    const { cerezTercihi } = await chrome.storage.local.get("cerezTercihi");
-    const cerez = !!cerezTercihi;
     const yanit = await mesajGonder({
-      tip: "formatlar", url: location.href, ref: document.referrer, cerez,
+      tip: "formatlar", url: location.href, ref: document.referrer,
     });
     if (!panel) return;
     if (yanit.hata) return hataGoster(yanit.hata);
@@ -105,7 +103,7 @@
       const s = document.createElement("button");
       s.className = "vi-secenek" + (birincil ? " vi-birincil" : "");
       s.textContent = etiket;
-      s.onclick = () => indir(govde, cerez);
+      s.onclick = () => indir(govde, yanit.baslik || "");
       kutu.appendChild(s);
     };
     const cozunurlukler = yanit.cozunurlukler || [];
@@ -120,21 +118,21 @@
   function hataGoster(h) {
     if (!panel) return;
     const metin = h === "sunucu-yok"
-      ? "Yerel sunucu çalışmıyor — video-indirici klasöründeki baslat.command'ı çalıştır."
-      : "Video çözümlenemedi. Girişli içerikse eklenti menüsünden çerezleri açmayı dene.";
+      ? "Yerel sunucu çalışmıyor — PKD klasöründeki baslat.command'ı çalıştır."
+      : "Video çözümlenemedi. Girişli içerikse siteye giriş yaptığından emin ol.";
     panel.innerHTML = '<div class="vi-durum"></div>';
     panel.firstChild.textContent = metin;
     setTimeout(panelKapat, 6000);
   }
 
-  async function indir(govde, cerez) {
+  async function indir(govde, baslik) {
     if (!panel) return;
     panel.innerHTML =
       '<div class="vi-tamam">⬇ İndirme başladı</div>' +
       '<div class="vi-durum" style="margin-top:4px">Bitince bildirim gelecek. ' +
       "Bu sayfayı kapatabilirsin.</div>";
     const y = await mesajGonder({
-      tip: "indir", url: location.href, ref: document.referrer, cerez, ...govde,
+      tip: "indir", url: location.href, ref: document.referrer, baslik, ...govde,
     });
     if (y && y.hata) return hataGoster(y.hata);
     setTimeout(panelKapat, 3000);
