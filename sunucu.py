@@ -32,8 +32,20 @@ import yt_dlp
 
 PORT = 8765
 INDIRME_KLASORU = Path.home() / "Downloads" / "PKD"
-FFMPEG = shutil.which("ffmpeg") or "/opt/homebrew/bin/ffmpeg"
-FFPROBE = shutil.which("ffprobe") or "/opt/homebrew/bin/ffprobe"
+def _arac_bul(ad: str) -> str:
+    yol = shutil.which(ad)
+    if yol:
+        return yol
+    # Windows'ta windows-kur.ps1 ffmpeg'i program klasörüne indirir
+    for aday in (Path(__file__).parent / "ffmpeg" / f"{ad}.exe",
+                 Path("/opt/homebrew/bin") / ad):
+        if aday.exists():
+            return str(aday)
+    return ad
+
+
+FFMPEG = _arac_bul("ffmpeg")
+FFPROBE = _arac_bul("ffprobe")
 BILDIRICI = shutil.which("terminal-notifier")  # özel ikonlu bildirim için
 BILDIRIM_IKONU = Path(__file__).parent / "bildirim-ikon.png"
 

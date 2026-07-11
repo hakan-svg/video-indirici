@@ -33,31 +33,28 @@ Terminal'i kapatabilirsin.
 
 ## WINDOWS KULLANIYORSAN
 
-### 1. Python kur
-https://www.python.org/downloads/ adresinden **Download Python**'a tıkla,
-indirilen dosyayı aç. **ÖNEMLİ:** Kurulum ekranının en altındaki
-**"Add python.exe to PATH"** kutusunu mutlaka İŞARETLE, sonra
-**Install Now**'a tıkla.
+### 1. PowerShell'i aç
+Başlat menüsüne **powershell** yaz, Enter'a bas. Mavi bir yazı
+penceresi açılacak. Korkma, sadece aşağıdakini yapıştıracaksın.
 
-### 2. ffmpeg kur
-Başlat menüsüne **cmd** yaz, **Komut İstemi**'ni aç, şunu yapıştır, Enter:
+### 2. Aşağıdaki TEK satırı KOPYALA, PowerShell'e YAPIŞTIR, Enter'a bas
 
 ```
-winget install Gyan.FFmpeg
+irm https://raw.githubusercontent.com/hakan-svg/PKD-Post-Kreatif-Downloader/main/windows-kur.ps1 | iex
 ```
 
-### 3. Programı indir
-https://github.com/hakan-svg/PKD-Post-Kreatif-Downloader adresine gir →
-yeşil **Code** düğmesi → **Download ZIP**. İnen ZIP'e sağ tıkla →
-**Tümünü ayıkla** → çıkan **PKD-Post-Kreatif-Downloader** klasörünü
-**Belgeler**'in içine taşı.
+Gerisini kurulum kendisi halleder: Python'u da, ffmpeg'i de, otomatik
+başlatmayı da kendisi kurar. İnternet hızına göre 5-10 dakika sürebilir;
+pencereyi kapatma, bitmesini bekle.
 
-### 4. Kur
-Klasörün içindeki **kur.bat** dosyasına çift tıkla, bitmesini bekle.
-("Windows bilgisayarınızı korudu" uyarısı çıkarsa **Ek bilgi →
-Yine de çalıştır**.) Sonra **otomatik-baslat-kur.bat**'a çift tıkla.
-Son olarak **baslat.bat**'a çift tıkla (bir kereliğine; bundan sonra
-bilgisayar her açıldığında kendiliğinden çalışır).
+Sonunda **"[OK] Kurulum bitti"** yazısını göreceksin; Chrome'da eklenti
+sayfası, dosya gezgininde de **eklenti** klasörü kendiliğinden açılır.
+PowerShell'i kapatabilirsin.
+
+> Alternatif: Programı ZIP olarak indirip klasördeki **kur.bat**'a çift
+> tıklaman da yeterli — o da aynı şekilde her şeyi kendisi kurar.
+> ("Windows bilgisayarınızı korudu" uyarısı çıkarsa **Ek bilgi →
+> Yine de çalıştır**.)
 
 ---
 
@@ -72,9 +69,9 @@ bilgisayar her açıldığında kendiliğinden çalışır).
      klasörünü `chrome://extensions` sayfasının üzerine **sürükleyip bırak**
      — bu kadar. (Klasör güvenli bir sistem konumundadır, yanlışlıkla
      silinmez.)
-   - **Windows:** **PKD-Post-Kreatif-Downloader** klasörünün İÇİNDEKİ **eklenti** klasörü
-     — dikkat: ana klasörün kendisini değil, içindeki **eklenti**'yi
-     seçmezsen "Manifest dosyası eksik" hatası alırsın
+   - **Windows:** Kurulumun sonunda dosya gezgininde işaretli açılan
+     **eklenti** klasörü — dikkat: ana klasörün kendisini değil, içindeki
+     **eklenti**'yi seçmezsen "Manifest dosyası eksik" hatası alırsın
 5. Araç çubuğunda puzzle (🧩) simgesine tıkla → **PKD**'nin
    yanındaki raptiyeye tıkla ki hep görünsün
 

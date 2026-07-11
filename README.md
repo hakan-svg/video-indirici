@@ -26,7 +26,12 @@ git clone https://github.com/hakan-svg/PKD-Post-Kreatif-Downloader.git && cd PKD
 ./kur.sh
 ```
 
-**Windows:** repoyu indir, `kur.bat`'a çift tıkla.
+**Windows (tek komut — Python, ffmpeg, otomatik başlatma dahil her şeyi kurar;
+PowerShell'e yapıştır):**
+```powershell
+irm https://raw.githubusercontent.com/hakan-svg/PKD-Post-Kreatif-Downloader/main/windows-kur.ps1 | iex
+```
+(İstersen repoyu ZIP indirip `kur.bat`'a çift tıklaman da aynı işi yapar.)
 
 **Eklenti (tüm platformlar):**
 1. Chrome'da `chrome://extensions` aç
