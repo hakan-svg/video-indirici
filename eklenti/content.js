@@ -84,27 +84,30 @@
         continue;
       }
       const r = video.getBoundingClientRect();
-      if (r.width < EN_KUCUK_GENISLIK || r.height < 100 ||
-          r.bottom < 0 || r.top > innerHeight) {
-        d.classList.remove("vi-gorunur");
-        continue;
+      // Yeterince büyük ve görünür alandaki her videoda düğmeyi göster.
+      // (Eski davranışta düğme yalnızca fare tam videonun üstündeyken
+      //  görünüyordu; YouTube oynatıcısı bu koordinat testini bozup düğmeyi
+      //  hiç göstermiyordu. Artık görünür alandaysa hep gösteriyoruz.)
+      const gorunur = r.width >= EN_KUCUK_GENISLIK && r.height >= 100 &&
+        r.bottom > 40 && r.top < innerHeight - 20;
+      d.classList.toggle("vi-gorunur", gorunur);
+      if (gorunur) {
+        d.style.top = Math.max(r.top + 10, 8) + "px";
+        d.style.left = Math.min(r.right, innerWidth) - 44 + "px";
       }
-      d.style.top = Math.max(r.top + 10, 4) + "px";
-      d.style.left = Math.min(r.right, innerWidth) - 44 + "px";
     }
   }
 
-  // Düğme yalnızca imleç videonun üzerindeyken görünür
+  // Fare videonun üstündeyken düğmeyi tam belirginleştir (opsiyonel vurgu).
   document.addEventListener("mousemove", (e) => {
     for (const [video, d] of dugmeler) {
       const r = video.getBoundingClientRect();
       const ustunde =
         e.clientX >= r.left && e.clientX <= r.right &&
-        e.clientY >= r.top && e.clientY <= r.bottom &&
-        r.width >= EN_KUCUK_GENISLIK;
-      d.classList.toggle("vi-gorunur", ustunde || d.contains(e.target));
+        e.clientY >= r.top && e.clientY <= r.bottom;
+      d.classList.toggle("vi-vurgu", ustunde || d.contains(e.target));
     }
-  }, { passive: true });
+  }, { passive: true, capture: true });
 
   function tara() {
     if (!chrome.runtime?.id) return temizle(); // eklenti kaldırılmış
@@ -195,6 +198,11 @@
     { passive: true, capture: true });
   addEventListener("resize", konumla, { passive: true });
 
-  zamanlayici = setInterval(tara, 1200);
+  // YouTube gibi SPA sitelerde sayfa yeniden yüklenmeden gezinilir;
+  // yeni oynatıcı gelince hemen yeniden tara.
+  window.addEventListener("yt-navigate-finish", () => setTimeout(tara, 300));
+  window.addEventListener("popstate", () => setTimeout(tara, 300));
+
+  zamanlayici = setInterval(tara, 1000);
   tara();
 })();

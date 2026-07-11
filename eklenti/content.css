@@ -21,11 +21,12 @@
   pointer-events: none;
 }
 .vi-dugme.vi-gorunur {
-  opacity: 1;
+  opacity: 0.7;
   transform: scale(1);
   pointer-events: auto;
 }
-.vi-dugme:hover { background: rgba(50, 50, 54, 0.8); }
+.vi-dugme.vi-gorunur.vi-vurgu { opacity: 1; }
+.vi-dugme.vi-gorunur:hover { opacity: 1; background: rgba(50, 50, 54, 0.85); }
 .vi-dugme svg { width: 17px; height: 17px; stroke: #fff; }
 
 .vi-panel {
