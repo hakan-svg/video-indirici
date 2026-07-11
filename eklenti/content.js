@@ -26,12 +26,21 @@
         if (yol) return location.origin + yol;
       }
       if (/(^|\.)linkedin\.com$/.test(host)) {
-        const kap = video.closest(
-          "[data-urn*='urn:li:activity'],[data-id*='urn:li:activity']");
-        const urn = kap &&
-          (kap.getAttribute("data-urn") || kap.getAttribute("data-id"));
-        const es = urn && urn.match(/urn:li:activity:\d+/);
-        if (es) return `https://www.linkedin.com/feed/update/${es[0]}/`;
+        // Gönderi kimliği (urn:li:activity:...) sarmalayan öğelerin
+        // herhangi bir data- özniteliğinde olabilir; ata zincirini tara.
+        for (let e = video; e && e !== document.body; e = e.parentElement) {
+          for (const oz of e.attributes || []) {
+            const es = String(oz.value).match(/urn:li:(?:activity|ugcPost):(\d+)/);
+            if (es) {
+              return "https://www.linkedin.com/feed/update/urn:li:activity:" +
+                es[1] + "/";
+            }
+          }
+          // Gönderiye giden bağlantı da işimizi görür
+          const a = e.querySelector &&
+            e.querySelector("a[href*='/feed/update/urn:li:activity:'],a[href*='/posts/']");
+          if (a) return new URL(a.getAttribute("href"), location.origin).href;
+        }
       }
       if (/(^|\.)instagram\.com$/.test(host) && location.pathname === "/") {
         const makale = video.closest("article");
@@ -148,13 +157,12 @@
       s.onclick = () => indir(hedef, govde, yanit.baslik || "");
       kutu.appendChild(s);
     };
-    const cozunurlukler = yanit.cozunurlukler || [];
-    if (cozunurlukler.length) {
-      cozunurlukler.forEach((h, i) => ekle(h + "p", { yukseklik: h }, i === 0));
-    } else {
-      ekle("En iyi kalite", {}, true);
-    }
-    ekle("Sadece ses", { sadeceSes: true }, false);
+    const secenekler = yanit.secenekler || [{ etiket: "En iyi kalite" }];
+    secenekler.forEach((s, i) => {
+      const { etiket, ...govde } = s;
+      ekle(etiket, govde, i === 0);
+    });
+    ekle("Sadece ses (MP3)", { sadeceSes: true }, false);
   }
 
   function hataGoster(h) {

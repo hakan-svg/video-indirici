@@ -148,22 +148,42 @@ def quicktime_uyumlu_yap(dosya: str, is_id: str = "") -> str:
     return dosya
 
 
+def secenek_listesi(bilgi: dict) -> list:
+    """Kalite seçeneklerini üretir.
+
+    Çoğu sitede yükseklik (720p, 1080p) bilinir. LinkedIn gibi bazı siteler
+    yükseklik/kodek bilgisi vermez; orada bit hızına göre seçenek sunulur.
+    """
+    formatlar = [f for f in bilgi.get("formats", []) if f.get("vcodec") != "none"]
+    yukseklikler = sorted({f["height"] for f in formatlar if f.get("height")},
+                          reverse=True)
+    if yukseklikler:
+        return [{"etiket": f"{h}p", "yukseklik": h} for h in yukseklikler]
+
+    hizli = sorted(
+        ((f["format_id"], f["tbr"]) for f in formatlar
+         if f.get("format_id") and f.get("tbr")),
+        key=lambda x: -x[1],
+    )
+    adlar = ["Yüksek", "Orta", "Düşük"]
+    secenekler = [
+        {"etiket": f"{adlar[i]} ({tbr / 1000:.1f} Mbps)", "formatId": fid}
+        for i, (fid, tbr) in enumerate(hizli[:3])
+    ]
+    return secenekler or [{"etiket": "En iyi kalite"}]
+
+
 def _bilgi_cek(url: str, ref: str, cerez_dosya) -> dict:
     with yt_dlp.YoutubeDL(temel_ayarlar(url, ref, cerez_dosya)) as ydl:
         bilgi = ydl.extract_info(url, download=False)
     if bilgi.get("entries"):  # sayfada birden çok video/embed varsa ilkini al
         bilgi = next(e for e in bilgi["entries"] if e)
-    yukseklikler = sorted(
-        {f["height"] for f in bilgi.get("formats", [])
-         if f.get("vcodec") not in (None, "none") and f.get("height")},
-        reverse=True,
-    )
     return {
         "baslik": bilgi.get("title") or "video",
         "sure": bilgi.get("duration"),
         "kapak": bilgi.get("thumbnail"),
         "site": bilgi.get("extractor_key"),
-        "cozunurlukler": yukseklikler,
+        "secenekler": secenek_listesi(bilgi),
         "url": bilgi.get("webpage_url") or url,
     }
 
@@ -185,6 +205,7 @@ def indirme_isi(is_id: str, istek: dict):
     url = istek["url"]
     ref = (istek.get("ref") or "").strip()
     yukseklik = istek.get("yukseklik")
+    format_id = istek.get("formatId")
     sadece_ses = bool(istek.get("sadeceSes"))
     cerezler = istek.get("cerezler") or []
     baslik = istek.get("baslik") or url
@@ -213,9 +234,12 @@ def indirme_isi(is_id: str, istek: dict):
         if sadece_ses:
             ayar["format"] = "ba/b"
             ayar["postprocessors"] = [
-                {"key": "FFmpegExtractAudio", "preferredcodec": "m4a"}]
+                {"key": "FFmpegExtractAudio", "preferredcodec": "mp3",
+                 "preferredquality": "192"}]
         else:
-            if yukseklik:
+            if format_id:  # yükseklik bilgisi olmayan siteler (ör. LinkedIn)
+                ayar["format"] = f"{format_id}+ba/{format_id}/b"
+            elif yukseklik:
                 ayar["format"] = (f"bv*[height<={yukseklik}]+ba/"
                                   f"b[height<={yukseklik}]/bv*+ba/b")
             else:

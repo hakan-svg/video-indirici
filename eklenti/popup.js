@@ -40,12 +40,11 @@ async function formatlariGetir() {
     b.onclick = () => indir(govde);
     $("butonlar").appendChild(b);
   };
-  if (v.cozunurlukler.length) {
-    v.cozunurlukler.forEach((h, i) => ekle(`${h}p`, { yukseklik: h }, i === 0));
-  } else {
-    ekle("En iyi kalite", {}, true);
-  }
-  ekle("Sadece ses", { sadeceSes: true });
+  (v.secenekler || [{ etiket: "En iyi kalite" }]).forEach((s, i) => {
+    const { etiket, ...govde } = s;
+    ekle(etiket, govde, i === 0);
+  });
+  ekle("Sadece ses (MP3)", { sadeceSes: true });
 }
 
 async function indir(govde) {

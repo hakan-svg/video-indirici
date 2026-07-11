@@ -67,6 +67,7 @@ chrome.runtime.onMessage.addListener((mesaj, gonderen, yanitla) => {
           ref: mesaj.ref || "",
           cerezler: await cerezleriTopla(mesaj.url),
           yukseklik: mesaj.yukseklik,
+          formatId: mesaj.formatId,
           sadeceSes: !!mesaj.sadeceSes,
           baslik: mesaj.baslik || "",
         }),
