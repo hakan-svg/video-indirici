@@ -30,9 +30,14 @@ git clone <repo-adresi> && cd video-indirici
 > Web Store video indiricileri kabul etmediği için eklenti bu şekilde
 > "paketlenmemiş" yüklenir. Her bilgisayarda bir kez yapılır.
 
+**Otomatik başlatma (önerilir):** `otomatik-baslat-kur.sh` (Mac) veya
+`otomatik-baslat-kur.bat` (Windows) çalıştır — sunucu her oturum açılışında
+kendiliğinden başlar, bir daha elle başlatman gerekmez.
+
 ## Kullanım
 
-1. Sunucuyu başlat: `baslat.command` (Mac) / `baslat.bat` (Windows)
+1. Sunucuyu başlat: otomatik başlatma kurduysan hiçbir şey yapma;
+   kurmadıysan `baslat.command` (Mac) / `baslat.bat` (Windows)
 2. Video olan sayfada eklenti simgesine tıkla
 3. Çözünürlüğü seç → dosya `~/Downloads/VideoIndirici/` klasörüne iner
 
