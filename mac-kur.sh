@@ -46,9 +46,12 @@ python3 -m venv .venv
 # 5) Otomatik başlatma kur + sunucuyu hemen başlat
 ./otomatik-baslat-kur.sh
 
-# 6) Kalan tek elle adım için her şeyi önüne getir:
-#    eklenti klasörünü Finder'da işaretle, Chrome'da eklenti sayfasını aç
-open -R "$DIZIN/eklenti" 2>/dev/null || true
+# 6) Eklentiyi masaüstüne kopyala — Chrome'da seçilecek klasör bu.
+#    (Yanlışlıkla ana klasörün seçilmesini önler; net isimli tek klasör.)
+EKLENTI="$HOME/Desktop/VideoIndirici-Eklenti"
+rm -rf "$EKLENTI"
+cp -R "$DIZIN/eklenti" "$EKLENTI"
+open -R "$EKLENTI" 2>/dev/null || true
 osascript >/dev/null 2>&1 <<'AS' || true
 tell application "Google Chrome"
   activate
@@ -62,4 +65,6 @@ echo "✅ Kurulum bitti. Sunucu çalışıyor ve bilgisayar her açıldığında
 echo
 echo "Son adım — Chrome'da (30 saniye, bir kereliğine):"
 echo "  1) Açılan chrome://extensions sayfasında sağ üstten 'Geliştirici modu'nu aç"
-echo "  2) 'Paketlenmemiş öğe yükle'ye tıkla, Finder'da işaretlenen 'eklenti' klasörünü seç"
+echo "  2) 'Paketlenmemiş öğe yükle'ye tıkla, MASAÜSTÜNDEKİ 'VideoIndirici-Eklenti' klasörünü seç"
+echo
+echo "Not: Masaüstündeki VideoIndirici-Eklenti klasörünü silme; Chrome eklentiyi oradan çalıştırır."

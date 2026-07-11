@@ -61,12 +61,18 @@ bilgisayar her açıldığında kendiliğinden çalışır).
 
 ---
 
-## CHROME EKLENTİSİNİ EKLE (Mac ve Windows'ta aynı)
+## CHROME EKLENTİSİNİ EKLE
 
 1. Chrome'un adres çubuğuna şunu yaz, Enter'a bas: `chrome://extensions`
+   (Mac'te kurulum bu sayfayı zaten kendisi açar)
 2. Sağ üst köşedeki **Geliştirici modu** anahtarını aç (maviye dönsün)
 3. Sol üstte beliren **Paketlenmemiş öğe yükle** düğmesine tıkla
-4. **video-indirici** klasörünün içindeki **eklenti** klasörünü seç → **Seç**
+4. Klasörü seç:
+   - **Mac:** Masaüstündeki **VideoIndirici-Eklenti** klasörü
+     (kurulum onu oraya kendisi koyar; bu klasörü sonradan silme)
+   - **Windows:** **video-indirici** klasörünün İÇİNDEKİ **eklenti** klasörü
+     — dikkat: video-indirici'nin kendisini değil, içindeki **eklenti**'yi
+     seçmezsen "Manifest dosyası eksik" hatası alırsın
 5. Araç çubuğunda puzzle (🧩) simgesine tıkla → **Video İndirici**'nin
    yanındaki raptiyeye tıkla ki hep görünsün
 
