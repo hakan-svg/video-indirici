@@ -12,29 +12,22 @@ Klavyede **Cmd + Boşluk** tuşlarına bas, açılan arama kutusuna
 **Terminal** yaz, Enter'a bas. Siyah/beyaz bir yazı penceresi açılacak.
 Korkma, sadece aşağıdakileri yapıştıracaksın.
 
-### 2. Aşağıdaki satırları KOPYALA, Terminal'e YAPIŞTIR, Enter'a bas
+### 2. Aşağıdaki TEK satırı KOPYALA, Terminal'e YAPIŞTIR, Enter'a bas
 
 ```
-cd ~
-git clone https://github.com/hakan-svg/video-indirici.git
-cd video-indirici
-./kur.sh
-./otomatik-baslat-kur.sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/hakan-svg/video-indirici/main/mac-kur.sh)"
 ```
 
-- İlk satırda Mac **"komut satırı araçları kurulsun mu?"** diye bir pencere
-  açarsa **Yükle**'ye tıkla, kurulum bitince yukarıdaki satırları
-  tekrar yapıştır.
-- Ekranda **"UYARI: ffmpeg bulunamadı"** yazarsa, şu iki satırı da
-  sırayla yapıştır (ilki şifreni sorabilir; yazarken görünmez, normal):
+Gerisini kurulum kendisi halleder. Sadece şunlar olabilir:
 
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install ffmpeg
-```
+- Mac **"komut satırı araçları kurulsun mu?"** penceresi açarsa
+  **Yükle**'ye tıkla ve bekle — kurulum kendiliğinden devam eder.
+- **Şifreni sorarsa** yaz (yazarken ekranda görünmez, normaldir), Enter'a bas.
+- **"Terminal, Chrome'u denetlemek istiyor"** diye sorarsa **Tamam**'a tıkla.
 
-En sonda **"sunucu artık her oturum açılışında kendiliğinden başlayacak"**
-yazısını gördüysen bu kısım tamam. Terminal'i kapatabilirsin.
+Sonunda **"✅ Kurulum bitti"** yazısını göreceksin; Chrome'da eklenti
+sayfası, Finder'da da **eklenti** klasörü kendiliğinden açılır.
+Terminal'i kapatabilirsin.
 
 ---
 

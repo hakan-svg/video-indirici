@@ -15,9 +15,14 @@ bu ikili yapı gereklidir.
 
 Gereksinimler: Python 3.10+, ffmpeg, Google Chrome.
 
-**macOS / Linux:**
+**macOS (tek komut — ffmpeg, otomatik başlatma dahil her şeyi kurar):**
 ```bash
-git clone <repo-adresi> && cd video-indirici
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/hakan-svg/video-indirici/main/mac-kur.sh)"
+```
+
+**Linux:**
+```bash
+git clone https://github.com/hakan-svg/video-indirici.git && cd video-indirici
 ./kur.sh
 ```
 
