@@ -58,6 +58,14 @@ eklenti, ilgili sitenin çerezlerini Chrome API'siyle okuyup yerel sunucuya
 iletir (anahtar zinciri/sistem şifresi gerekmez); sunucu çerezleri yalnızca
 çerezsiz deneme başarısız olursa kullanır.
 
+## Kaldırma
+
+- **Mac:** `kaldir.command` (çift tık) veya
+  `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/hakan-svg/PKD-Post-Kreatif-Downloader/main/kaldir.command)"`
+- **Windows:** `kaldir.bat` çalıştır, sonra klasörü sil.
+- Her ikisinde de eklentiyi `chrome://extensions`'tan elle kaldır.
+- İndirilen videolara dokunulmaz (`~/Downloads/PKD`).
+
 ## Notlar
 
 - Sunucu yalnızca 127.0.0.1'i dinler; dışarıya kapalıdır.

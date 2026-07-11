@@ -96,6 +96,25 @@ tıklayarak da indirebilirsin.
 **Instagram gibi girişli siteler:** Chrome'da o siteye giriş yapmış
 olman yeterli; başka bir şey yapmana gerek yok.
 
+## KALDIRMAK İSTERSEN
+
+**Mac:** Terminal'e şu tek satırı yapıştır (veya program klasöründeki
+**kaldir.command**'a çift tıkla):
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/hakan-svg/PKD-Post-Kreatif-Downloader/main/kaldir.command)"
+```
+
+**Windows:** Program klasöründeki **kaldir.bat**'a çift tıkla, sonra
+klasörü çöpe taşı.
+
+**İkisinde de son adım:** Chrome > `chrome://extensions` > PKD kartında
+**Kaldır**'a tıkla (Chrome bunu dışarıdan yaptırmaz, elle gerekiyor).
+
+İndirdiğin videolar silinmez; **İndirilenler / PKD** klasöründe kalır.
+
+---
+
 ## SORUN OLURSA
 
 - **"Yerel sunucu çalışmıyor" diyorsa:** PKD-Post-Kreatif-Downloader klasöründeki
